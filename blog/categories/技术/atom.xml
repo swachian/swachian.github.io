@@ -4,7 +4,7 @@
   <title><![CDATA[分类: 技术 | Hegel2011的博客]]></title>
   <link href="https://swachian.github.io//blog/categories/技术/atom.xml" rel="self"/>
   <link href="https://swachian.github.io//"/>
-  <updated>2025-06-16T11:45:42+08:00</updated>
+  <updated>2025-07-02T15:42:11+08:00</updated>
   <id>https://swachian.github.io//</id>
   <author>
     <name><![CDATA[Hegel 2011]]></name>
@@ -12,6 +12,471 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[C# and .Net Notes]]></title>
+    <link href="https://swachian.github.io//blog/2025/07/01/csharp/"/>
+    <updated>2025-07-01T17:08:00+08:00</updated>
+    <id>https://swachian.github.io//blog/2025/07/01/csharp</id>
+    <content type="html"><![CDATA[<p>括号的单词：<br/>
+parentheses (), round brackets<br/>
+braces {}, curl ~<br/>
+brackets [], square brackets<br/>
+angle brackets &lt;><br/>
+villainous org 反派组织</p>
+
+<p><ItemGroup> 和global using可以关联</p>
+
+<p><code>@"c:\t"</code> 加入<code>@</code>可以防止转义，从而达到verbatim（一字不差）<br/>
+<code>$"{value}"</code> 外面一个<code>$</code>表示里面一层<code>{}</code>用于计算，如果两个<code>$$</code>，则里面要两层<code></code>才运算，这叫Raw interpolated string<br/>
+Raw string literals, C#引入了三个引号<code>"""</code> ，其实引号可以更多，如果你被引的文字里需要直接写更多的引号<br/>
+<code>default(string) ?? "&lt;NULL&gt;"</code> 中间的两个<code>??</code>表示if null then right<br/>
+<code>WriteLine(format: "{0,-10} {1,6:N0}",arg0: applesText, arg1: applesCount);</code>, 里面的0和1是表示参数的index，逗号后面是表示alignment对齐的位数，colon后面是表示按数字还currency来处理</p>
+
+<p>Null-coalescing operations
+<code>string? author</code><br/>
+<code>author?.Length ?? 30;</code><br/>
+<code>author ??: "unknown"</code></p>
+
+<p>Pattern Matching</p>
+
+<p>当o为int时，直接赋值给i，后面即可把i作为int类型直接操作<br/>
+<code>c#
+if (o is int i)
+{
+  WriteLine($"{i} x {j} = {i * j}");
+}
+</code></p>
+
+<p>c#7之后，patten也能用于switch<br/>
+<code>c#
+switch (animal)
+  {
+    case Cat fourLeggedCat when fourLeggedCat.Legs == 4:
+      message = $"The cat named {fourLeggedCat.Name} has four legs.";
+      break;
+    case Cat wildCat when wildCat.IsDomestic == false:
+      message = $"The non-domestic cat is named {wildCat.Name}.";
+      break;
+    case Cat cat:
+      message = $"The cat is named {cat.Name}.";
+      break;
+    default: // default is always evaluated last.
+      message = $"{animal.Name} is a {animal.GetType().Name}.";
+      break;
+    case Spider spider when spider.IsPoisonous:
+      message = $"The {spider.Name} spider is poisonous. Run!";
+      break;
+    case null:
+      message = "The animal is null.";
+      break;
+  }
+</code></p>
+
+<p>如果引入lambda， switch后的case也能当成expression<br/>
+<code>c#
+ message = animal switch
+  {
+    Cat fourLeggedCat when fourLeggedCat.Legs == 4
+      =&gt; $"The cat named {fourLeggedCat.Name} has four legs.",
+    Cat wildCat when wildCat.IsDomestic == false
+      =&gt; $"The non-domestic cat is named {wildCat.Name}.",
+    Cat cat
+      =&gt; $"The cat is named {cat.Name}.",
+    Spider spider when spider.IsPoisonous
+      =&gt; $"The {spider.Name} spider is poisonous. Run!",
+    null
+      =&gt; "The animal is null.",
+    _
+      =&gt; $"{animal.Name} is a {animal.GetType().Name}."
+  };
+</code></p>
+
+<p><code>int.TryParse()</code>, <code>int.Parse()</code>可以用于转换string到int</p>
+
+<p>partial class可以实现对已有的class的开闭拓展</p>
+
+<p>支持hash式入参，<code>TimesTable(number: 7, size: 10)</code></p>
+
+<p>cardinal 基数，红衣主教<br/>
+ordinal序列的</p>
+
+<p>value switch<br/>
+<code>c#
+   string suffix = lastDigit switch
+        {
+          1 =&gt; "st",
+          2 =&gt; "nd",
+          3 =&gt; "rd",
+          _ =&gt; "th"
+        };
+</code></p>
+
+<p>contingent 代表团，exclusive to VS 专属于VS</p>
+
+<p>csproj文件中可以引入另一个csproj，采用ProjectReference标签，更要一级的是sln（solution容器）</p>
+
+<pre><code>  &lt;ItemGroup&gt;
+    &lt;ProjectReference Include="..\CalculatorLib\CalculatorLib.csproj" /&gt;
+  &lt;/ItemGroup&gt;
+</code></pre>
+
+<p>\ forward slash<br/>
+/ backward slash</p>
+
+<p>c# 支持out出的入参<br/>
+<code>c#
+if (int.TryParse(input, out int count))
+{
+  WriteLine($"There are {count} eggs.");
+}
+</code></p>
+
+<h2>进入OO</h2>
+
+<p>alias： <code>using ENV = System.Environment</code></p>
+
+<p>object initializer syntax, 很多样化的syntax</p>
+
+<pre><code class="c#">Book book = new(isbn: "978-1803237800",
+  title: "C# 12 and .NET 8 - Modern Cross-Platform Development Fundamentals")
+{
+  Author = "Mark J. Price",
+  PageCount = 821
+};
+</code></pre>
+
+<p><code>[Flags]</code>类似java的annotation，是一种decorating</p>
+
+<p>使用<code>readonly</code>优先于<code>const</code>，c#中的const只能用于原始类型，且在编译时就已经确定了值。</p>
+
+<p>大写的是Property，小写的是field，field是不对外暴露的</p>
+
+<p>optional parameters，naming parameters必须出现在required params后面</p>
+
+<p>in, out, ref,
+<code>public void PassingParameters(int w, in int x, ref int y, out int z)</code>
+ref和out的区别在于，out的参数由method实现初始化</p>
+
+<p>tuple的返回以及naming<br/>
+```c#
+ // Method that returns a tuple: (string, int).
+  public (string, int) GetFruit()
+  {
+    return ("Apples", 5);
+  }
+  (string, int) fruit = bob.GetFruit();
+  (string fruitName, int fruitNumber) = bob.GetFruit();</p>
+
+<pre><code>
+local function，支持function内再建function  
+</code></pre>
+
+<p>// Method with a local function.
+  public static int Factorial(int number)
+  {
+    if (number &lt; 0)
+    {
+      throw new ArgumentException(
+        $"{nameof(number)} cannot be less than zero.");
+    }
+    return localFactorial(number);</p>
+
+<pre><code>int localFactorial(int localNumber) // Local function.
+{
+  if (localNumber == 0) return 1;
+  return localNumber * localFactorial(localNumber - 1);
+}
+</code></pre>
+
+<p>  }
+```</p>
+
+<p>partial除了修饰method，还能修饰method，便于与自动生成的代码共存<br/>
+```c#
+// Auto-generated designer file
+partial class FormDesigner
+{
+    partial void OnInitialized();</p>
+
+<pre><code>public FormDesigner()
+{
+    InitializeComponent();
+    OnInitialized(); // Optional hook
+}
+</code></pre>
+
+<p>}</p>
+
+<p>// Your custom code
+partial class FormDesigner
+{
+    partial void OnInitialized()
+    {
+        // Add custom initialization code
+    }
+}
+```</p>
+
+<p>indexer其实就是按数组方式去访问<br/>
+```c#
+  #region Indexers: Properties that use array syntax to access them.</p>
+
+<p>  public Person this[int index]
+  {
+    get
+    {
+      return Children[index]; // pass on to the List<T> indexer
+    }
+    set
+    {
+      Children[index] = value;
+    }
+  }
+```</p>
+
+<p>Pattern matching: 1. 类型模式 2. 关系模式( > &lt; =>) 3. 属性模式<br/>
+```c#
+var employee = new Employee { Name = "Charlie", IsManager = true };</p>
+
+<p>string role = employee switch
+{
+    { IsManager: true, Name: var name } when name.StartsWith("C")
+        => "Manager with a C-name",
+    { IsManager: true } => "Just a manager",
+    _ => "Regular employee"
+};
+```</p>
+
+<p>属性的get，set以及init，init表示必须在构造函数函数中被初始化，注意属性名称使用的是大写<br/>
+<code>c#
+public class Book
+{
+  public string Title { get; set; }
+  public string? Author { get; set; }
+}
+</code>
+record的==比较是按value进行的，而其他reference按value实现比较的只有string<br/>
+```c#
+AnimalRecord ar1 = new() { Name = "Rex" };</p>
+
+<p>// 定义primary constructor，Kotlin也是类似的做法
+public Headset() : this("Microsoft", "HoloLens") { }
+```</p>
+
+<p>操作相同类的method： 即this是自己，而传入的参数比如this.method1(that)的that也是本class，最好同时提供静态方法和实例方法。<br/>
+定义operator的重载，指<code>+-*/</code>的重载。</p>
+
+<pre><code class="c#">// Define the + operator to "marry".
+  public static bool operator +(Person p1, Person p2)
+  {
+    Marry(p1, p2);
+
+    // Confirm they are both now married.
+    return p1.Married &amp;&amp; p2.Married;
+  }
+</code></pre>
+
+<p>Generic 例子<br/>
+<code>c#
+Dictionary&lt;int, string&gt; lookupIntString = new();
+lookupIntString.Add(key: 1, value: "Alpha");
+</code></p>
+
+<p>delegate and EventHandler<br/>
+```c#
+  public event EventHandler? Shout; // null initially.</p>
+
+<h1>region Defining and handling delegates</h1>
+
+<p>// Assign the method(s) to the Shout event delegate.
+harry.Shout += Harry_Shout;
+harry.Shout += Harry_Shout_2;</p>
+
+<p>// 触发时，就会把所有注册给Shout的handler都调用一遍
+    if (Shout is not null)
+    {
+      // ...then call the delegate to "raise" the event.
+      Shout(this, EventArgs.Empty);
+    }
+```</p>
+
+<p>IComparable 和 IComparer<br/>
+```c#
+public class Person : IComparable<Person>
+{
+  public int CompareTo(Person? other)
+  {
+    int position;
+    return position;
+  }
+}</p>
+
+<p>Array.Sort(people);</p>
+
+<p>public class PersonComparer : IComparer&lt;Person?>
+{
+  public int Compare(Person? x, Person? y)
+  {
+    return 0;
+  }
+}</p>
+
+<p>Array.Sort(people, new PersonComparer());
+<code>
+多个接口定义的方法名相同时，可以使用显示实现的版本。在调用时必须指明接口    
+</code>c#
+interface IWriter { void Write(); }
+interface IEncoder { void Write(); }</p>
+
+<p>class Processor : IWriter, IEncoder
+{
+    void IWriter.Write() => Console.WriteLine("Writing to file.");
+    void IEncoder.Write() => Console.WriteLine("Encoding data.");
+}
+// 调用
+var processor = new Processor();
+((IWriter)processor).Write(); // 输出: Writing to file.
+((IEncoder)processor).Write(); // 输出: Encoding data.
+// processor.Write(); // ❌ 编译错误：不能直接通过类实例调用
+```</p>
+
+<p>int? a 表明可能可能为空，还有GetValueOrDefault()可以返回默认值，int的默认值是0</p>
+
+<p>inherit，用一个colon表示<br/>
+<code>public class Employee: Person {}</code></p>
+
+<p>只有标明多态的方法，才能在method前面用override，否则只能用new来hide父类的方法，且不会有多态的效果。指明多态，需要在父类层级中的某个地方定义该method为<code>virtual</code>.</p>
+
+<p><code>this</code>和<code>base</code>是区分子类和父类的关键字</p>
+
+<p>obj转类型时可以用if语句检查后避免使用cast</p>
+
+<p>constructors不会被继承，除非使用base()调用<br/>
+```c#
+public class PersonException : Exception
+{
+  public PersonException() : base() { }</p>
+
+<p>  public PersonException(string message) : base(message) { }</p>
+
+<p>  public PersonException(string message, Exception innerException)
+    : base(message, innerException) { }
+}
+```</p>
+
+<p>extension methods:<br/>
+利用static class和static method，加上(this string input) 就可以给string加上实例方法。实际上只是一个语法糖，这个东西也很自然地被kt抄了过去<br/>
+```c#
+public static class StringExtensions
+{
+  public static bool IsValidEmail(this string input)
+  {
+    // Use a simple regular expression to check
+    // that the input string is a valid email.</p>
+
+<pre><code>return Regex.IsMatch(input,
+  @"[a-zA-Z0-9\.-_]+@[a-zA-Z0-9\.-_]+");
+</code></pre>
+
+<p>  }
+}</p>
+
+<pre><code>
+自定义的class，初始化特性，继承性，==的计算，都是按内存来进行比对和操作的  
+struct分配的变量存储在stack里，默认没有==方法，但record struct是有的。  
+
+.net 虚拟机的一些概念  
+IL - Intermediate Language  
+CLR - Common Language Runtime  
+BCL - Base Class Libraries  
+Assembly -&gt; NuGet package(dlls)  
+namespace - type的地址  
+RootNamespace在assembly的cproj文件里定义了全局的地址  
+PropertyGroup中定义控制build的属性  
+ItemGroup中定义需要包含的东西  
+一个dll(assembly)可以包含多个namespaces  
+Package是用于管理依赖的，通常和dll一一对应  
+nuget.config定义project，solution的配置，一层一个文件，overriding式的  
+string和int这样小写的关键字，最后会关联到System里面的String和Int32这样的类  
+可以在nuget.org上发布自己的dll，类似nexus  
+
+`{Math.BigMul(number1, number2):N0}` 用于两个大数相乘  
+Random.Shared 可以构造随机数字  
+
+List(Add, Insert, Remove, RemoveAt)  
+Dictionary(Add, Remove)  
+HashSet(Add, Remove)  
+Queue(Enqueue, Dequeue)  
+Stack(Push, Pop)  
+Sorted Collections(SortedDictionary, SortedList, SortedSet)  
+BitArray, LinkedList&lt;T&gt;  
+
+Readonly是只读的list，而ImmutableDictionary可以有Add操作，但结果是返回一个全新的dictionary.  
+</code></pre>
+
+<p>// Call the Add method with a return value.
+ImmutableDictionary&lt;string, string> newDictionary =
+  immutableKeywords.Add(
+    key: Guid.NewGuid().ToString(),
+    value: Guid.NewGuid().ToString());
+```
+还有concurrent的版本，有的搭配await/async使用<br/>
+FrozenSet和FrozenDictionary则则没有Add和Remove方法<br/>
+EnsureCapacity(10_000)可以给定size</p>
+
+<p>Index：<br/>
+s[^5]获取倒数第5个元素<br/>
+<code>c#
+Range r1 = new(start: 3, end: 7);
+r3 = 3..7;
+r7 = ..3; //从0到3
+</code></p>
+
+<p>c#的两个点<code>..</code>也是一种spread的操作法，这一点不同于JS的三个点<br/>
+使用range可以返回某个连续集合的span，span默认情况下引用的是原collection内的元素地址，从而可以提高性能</p>
+
+<p>使用<code>Path.DirectorySeparatorChar</code>来构造文件路径，<code>Path.Combine(current, "images")</code>组合路径<br/>
+stream helper是一种decorator，如果gzip，CryptoStream等等<br/>
+streamReader， StreamWriter，</p>
+
+<p>EF建设在ADO.NET上，后者是类似JDBC的一套东西。<br/>
+Fluent API<br/>
+扩展自DbContext， OnConfiguring定义数据源等信息<br/>
+OnModelCreating中定义关联关系<br/>
+例子的代码给了用scaffold从表格中生成partial class的例子，但我聚的这种大量attributes（annotation）的写法入侵性太重，手法并不好。<br/>
+configureConventions配置惯例，例如所有的string类型默认50的长度<br/>
+IQueryable<Product>?.ToQueryString()<br/>
+optionsBuilder.LogTo().EnableSensitiveDataLogging可以配置EF的日志，用于调试SQL<br/>
+查询的时候能由tagwith输出日志。</p>
+
+<p>Principal Entity -- contains primary key<br/>
+Dependent Entity -- contains foreign keys<br/>
+Required relationship -- contains foreign key and is non-nullable<br/>
+Optional relationship -- contains foreign key and is nullable<br/>
+HasOne/HasMany, WithOne/WithMany<br/>
+HasForeignKey<Ticket>表示ticket里面会有这个对象的外键<br/>
+HasPrincipalKey可以指定关联的主键<br/>
+abstraction -- focus on a single concern<br/>
+Lower and Higher order abstractions<br/>
+encapsulation -- 封装的是状态<br/>
+ORM eliminate the need for repositories<br/>
+Avoid shallow abstractions<br/>
+Cartesian explosion, 多个一对多的情况下返回数据过多<br/>
+Navigation and AutoInclude() 主动加载<br/>
+<em>context.Entry()分别载入<br/>
+.AsSplitQuery()没有涉及LazyLoading<br/>
+Add, Update, Attach， 倾向于使用显示的repository<br/>
+</em>context的FromSqlInterpolated($@"{}")<br/>
+dbContext已经使用了unit of work这种模式</p>
+
+<p>IQueryable<Student> vs IEnumerable<Student><br/>
+Run on DB               Run in Memory<br/>
+use internally          queryable.As Enumerable()<br/>
+Return the most specific type<br/>
+更推荐IReadOnlyList返回，这个会直接执行。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[JavaScript To TypeScript]]></title>
@@ -190,7 +655,7 @@ const Search = memo(({a, b, c}) =&gt; {
 })
 </code></pre>
 
-<p>Learn TypeScript</p>
+<h2>Learn TypeScript</h2>
 
 <p>Learn TypeScript - Full Course for Beginners，done 6小时，基本学会了TypeScript，然后发现她也是C#的设计师设计的, 所以c#的语法很多。
 应该TS优先。最早学习js就感觉没有一个架子（blue print)很麻烦，最近终于适应了js的灵活，却发现业界又把TS捧为最佳实践。尽管一开始就应该这样，但世界是个草台班子，实际的发展路线就是这样曲折。<br/>
@@ -1196,156 +1661,6 @@ GC里也有类似的概念，并发GC意味着GC和应用程序同时进行，�
 <p>Higher-order functions：传递函数作为参数的函数<br/>
 Curring：可以分批应用参数的函数，其实就是把值先保存在函数体中<br/>
 数据结构存储：每次新建一个（批）对象</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Apollo Config]]></title>
-    <link href="https://swachian.github.io//blog/2021/08/19/apollo-config/"/>
-    <updated>2021-08-19T17:30:00+08:00</updated>
-    <id>https://swachian.github.io//blog/2021/08/19/apollo-config</id>
-    <content type="html"><![CDATA[<p>配置项的管理始终是一个很头疼的问题。虽然磕磕绊绊总能凑合着过，但确实一直不太优雅，甚至容易出错。
-人多的情况下，优雅是很难的，还是考虑怎么能减少损耗吧。所以抽空看了看Apollo的东西。</p>
-
-<blockquote><p>Apollo（阿波罗）是携程框架部门研发的开源配置管理中心，能够集中化管理应用不同环境、不同集群的配置，配置修改后能够实时推送到应用端，并且具备规范的权限、流程治理等特性。</p></blockquote>
-
-<p>也支持热更新、版本控制、分组等比较实用的特性，据说还能适应复杂的流程治理要求。简单适用了一下，确实不负盛名。</p>
-
-<h3>一. 安装并启动Apollo</h3>
-
-<p>因为是试用，目前使用的是单机版的Apollo，后续可能会进一步调研一下高可用版的发布。</p>
-
-<p>下载 <code>https://github.com/apolloconfig/apollo-build-scripts.git</code> ,  修改<code>demo.sh</code>里面的数据库配置信息和config server信息:</p>
-
-<pre><code> apollo_config_db_url="jdbc:mysql://localhost:3306/ApolloConfigDB?characterEncoding=utf8&amp;serverTimezone=Asia/Shanghai"
--apollo_config_db_username=root
--apollo_config_db_password=
-
- # apollo portal db info
- apollo_portal_db_url="jdbc:mysql://localhost:3306/ApolloPortalDB?characterEncoding=utf8&amp;serverTimezone=Asia/Shanghai"
--apollo_portal_db_username=root
--apollo_portal_db_password=
-
--config_server_url=http://localhost:8080
--admin_server_url=http://localhost:8090
- eureka_service_url=$config_server_url/eureka/
--portal_url=http://localhost:8070
-</code></pre>
-
-<p>config server就是未来的meta server，portal就是管理界面。</p>
-
-<h3>二. Java端的配置</h3>
-
-<p>对于基于Sprint Boot的应用而言，最简单和顺利的方式是在bootstrap.yml里面。操作步骤如下</p>
-
-<ol>
-<li>加入依赖 <code>   implementation group: 'com.ctrip.framework.apollo', name: 'apollo-client', version: '1.8.0'</code></li>
-<li>除去原先对config的依赖 <code>compile('org.springframework.cloud:spring-cloud-starter-config')</code>, 删除整个application.yml文件</li>
-<li>删除application.yml文件，并把内容转移到apollo里面</li>
-<li>在bootstart.yml里面替换下面的文件</li>
-</ol>
-
-
-<pre><code>apollo:
-  bootstrap:
-    enabled: true
-    namespaces: application,application.yml
-  meta: http://xxxx:8080
-app:
-  id: xxxxxx-compare-monit
-</code></pre>
-
-<p>enabled表示启用apollo读取配置，namespaces是给出了需要拉取的namespace，默认只有application一个，如果是自己添加的yml，则需要按上面的配置加一个。
-meta就是config server的地址。app.id表示了应用的身份，需要和apollo的对应起来。</p>
-
-<p>如果再portal侧重新发布配置项，可以看见下面的日志</p>
-
-<pre><code>INFO 69947 --- [Apollo-Config-1] c.f.a.s.p.AutoUpdateConfigChangeListener : Auto update apollo changed value successfully, new value: 222222, key: bcmonit.xxxxxKey, beanName: xxxxxxProperties, field: com.xxxxx.address.util.xxxxxProperties.xxxxxKey
-</code></pre>
-
-<p>更多的内容可以参考官网的设计文档，对apollo架构的介绍非常到位。</p>
-
-<p><a href="https://www.apolloconfig.com/#/zh/design/apollo-design">Apollo官网设计文档</a></p>
-
-<h3>三. K8S 部署</h3>
-
-<p>首先，要有一个K8S集群，可以参考 https://phoenixnap.com/kb/install-kubernetes-on-ubuntu
-来进行操作。但一般会需要trouble shotting，比较好的工具是通过<code>journalctl -xeu kubelet</code> 查看日志来定位问题，然后一一解决</p>
-
-<ul>
-<li>安装docker</li>
-<li>安装kubeadm kubelet kubectl
-
-<ul>
-<li>用apt-mark hold把上面几个组件的版本<strong>定</strong>住</li>
-</ul>
-</li>
-<li>Master
-
-<ul>
-<li>用kubeadm init --pod-network-cidr=10.244.0.0/16创建带网络信息的初始化</li>
-<li>用kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml部署虚拟网络</li>
-<li>查看pods的情况 kubectl get pods --all-namespaces</li>
-</ul>
-</li>
-<li>Workder
-
-<ul>
-<li>用kubeadm join --discovery-token abcdef.1234567890abcdef --discovery-token-ca-cert-hash sha256:1234..cdef 1.2.3.4:6443 加入k8s集群。</li>
-<li>其中的token可以通过kubeadmin token list查看，通过kubeadmin token create --ttl 0创建，sha256是证书，不会失效</li>
-<li>通过kubectl get nodes查看节点状态</li>
-</ul>
-</li>
-<li>安装服务或应用
-
-<ul>
-<li>使用helm</li>
-<li>使用kubectl apply</li>
-</ul>
-</li>
-</ul>
-
-
-<p>其次，安装helm，这是一个k8s的包管理工具:</p>
-
-<pre><code>curl https://baltocdn.com/helm/signing.asc | sudo apt-key add -
-sudo apt-get install apt-transport-https --yes
-echo "deb https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
-sudo apt-get update
-sudo apt-get install helm
-</code></pre>
-
-<p>查看安装效果</p>
-
-<p><code>kubectl get pods --all-namespaces -o wide</code> ，这个可以输出实际跑在各节点上的效果</p>
-
-<pre><code>AMESPACE     NAME                                                       READY   STATUS              RESTARTS   AGE     IP             NODE                   NOMINATED NODE   READINESS GATES
-default       apollo-service-dev-apollo-adminservice-566996fd98-mkdgm    1/1     Running             0          5d19h   10.244.2.3     master-node            &lt;none&gt;           &lt;none&gt;
-default       apollo-service-dev-apollo-configservice-7f955f6f66-x2mjw   0/1     ContainerCreating   0          5d19h   &lt;none&gt;         master-node            &lt;none&gt;           &lt;none&gt;
-default       my-nginx-5b56ccd65f-4rngp                                  1/1     Running             0          3h8m    10.244.2.2     master-node            &lt;none&gt;           &lt;none&gt;
-kube-system   coredns-78fcd69978-kb5td                                   1/1     Running             0          5d20h   10.244.0.3     office-wallet-dev-17   &lt;none&gt;           &lt;none&gt;
-kube-system   coredns-78fcd69978-l6m5g                                   1/1     Running             0          5d20h   10.244.0.2     office-wallet-dev-17   &lt;none&gt;           &lt;none&gt;
-kube-system   etcd-office-wallet-dev-17                                  1/1     Running             0          5d20h   172.17.3.4     office-wallet-dev-17   &lt;none&gt;           &lt;none&gt;
-kube-system   kube-apiserver-office-wallet-dev-17                        1/1     Running             0          5d20h   172.17.3.4     office-wallet-dev-17   &lt;none&gt;           &lt;none&gt;
-kube-system   kube-controller-manager-office-wallet-dev-17               1/1     Running             0          5d20h   172.17.3.4     office-wallet-dev-17   &lt;none&gt;           &lt;none&gt;
-kube-system   kube-flannel-ds-mbvzp                                      1/1     Running             0          18m     172.17.3.186   master-node            &lt;none&gt;           &lt;none&gt;
-kube-system   kube-flannel-ds-x75sk                                      1/1     Running             0          5d20h   172.17.3.4     office-wallet-dev-17   &lt;none&gt;           &lt;none&gt;
-kube-system   kube-proxy-n6q7x                                           1/1     Running             0          18m     172.17.3.186   master-node            &lt;none&gt;           &lt;none&gt;
-kube-system   kube-proxy-ph8s5                                           1/1     Running             0          5d20h   172.17.3.4     office-wallet-dev-17   &lt;none&gt;           &lt;none&gt;
-kube-system   kube-scheduler-office-wallet-dev-17                        1/1     Running             0          5d20h   172.17.3.4     office-wallet-dev-17   &lt;none&gt;           &lt;none&gt;
-</code></pre>
-
-<h3>Helm 和 kubectl apply的区别</h3>
-
-<p>默认kube提供的安装服务方法是<code>kubectl apply -f ./run-my-nginx.yaml</code>，适用于应用比较少的情况。如果应用很多，那么helm就可以帮上忙了。</p>
-
-<p>https://www.apolloconfig.com/#/zh/deployment/distributed-deployment-guide?id=_24-kubernetes%e9%83%a8%e7%bd%b2</p>
-
-<p>groovy for gradle:</p>
-
-<p>https://docs.gradle.org/current/dsl/org.gradle.api.Task.html</p>
-
-<p>https://docs.gradle.org/current/userguide/tutorial_using_tasks.html</p>
 ]]></content>
   </entry>
   

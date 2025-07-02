@@ -1,0 +1,922 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>C# and .Net Notes - Hegel2011的博客</title>
+  <meta name="author" content="Hegel 2011">
+
+  
+  <meta name="description" content="括号的单词：
+parentheses (), round brackets
+braces {}, curl ~
+brackets [], square brackets
+angle brackets &lt;>
+villainous org 反派组织 和global using可以关联 @"c:\ &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="https://swachian.github.io//blog/2025/07/01/csharp/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Hegel2011的博客" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<!--<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+-->
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Hegel2011的博客</a></h1>
+  
+    <h2>读书 - 工作 - 生活 - 笔记</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:swachian.github.io/" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">关于自己</a></li>
+  <li><a href="/blog/2015/02/20/to-read-list/">To-Read</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">C# and .Net Notes</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2025-07-01T17:08:00+08:00" pubdate data-updated="true">Jul 1<span>st</span>, 2025</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>括号的单词：<br/>
+parentheses (), round brackets<br/>
+braces {}, curl ~<br/>
+brackets [], square brackets<br/>
+angle brackets &lt;><br/>
+villainous org 反派组织</p>
+
+<p><ItemGroup> 和global using可以关联</p>
+
+<p><code>@"c:\t"</code> 加入<code>@</code>可以防止转义，从而达到verbatim（一字不差）<br/>
+<code>$"{value}"</code> 外面一个<code>$</code>表示里面一层<code>{}</code>用于计算，如果两个<code>$$</code>，则里面要两层<code>`才运算，这叫Raw interpolated string  
+Raw string literals, C#引入了三个引号</code>&#8221;&#8221;&#8221;<code>，其实引号可以更多，如果你被引的文字里需要直接写更多的引号  
+</code>default(string) ?? &#8221;<NULL>&#8221;<code>中间的两个</code>??<code>表示if null then right  
+</code>WriteLine(format: &#8220;{0,-10} {1,6:N0}&#8221;,arg0: applesText, arg1: applesCount);`, 里面的0和1是表示参数的index，逗号后面是表示alignment对齐的位数，colon后面是表示按数字还currency来处理</p>
+
+<p>Null-coalescing operations
+<code>string? author</code><br/>
+<code>author?.Length ?? 30;</code><br/>
+<code>author ??: "unknown"</code></p>
+
+<p>Pattern Matching</p>
+
+<p>当o为int时，直接赋值给i，后面即可把i作为int类型直接操作</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="k">if</span> <span class="p">(</span><span class="n">o</span> <span class="k">is</span> <span class="kt">int</span> <span class="n">i</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">WriteLine</span><span class="p">(</span><span class="err">$</span><span class="s">&quot;{i} x {j} = {i * j}&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>c#7之后，patten也能用于switch</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="k">switch</span> <span class="p">(</span><span class="n">animal</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>    <span class="k">case</span> <span class="n">Cat</span> <span class="n">fourLeggedCat</span> <span class="n">when</span> <span class="n">fourLeggedCat</span><span class="p">.</span><span class="n">Legs</span> <span class="p">==</span> <span class="m">4</span><span class="p">:</span>
+</span><span class='line'>      <span class="n">message</span> <span class="p">=</span> <span class="err">$</span><span class="s">&quot;The cat named {fourLeggedCat.Name} has four legs.&quot;</span><span class="p">;</span>
+</span><span class='line'>      <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">case</span> <span class="n">Cat</span> <span class="n">wildCat</span> <span class="n">when</span> <span class="n">wildCat</span><span class="p">.</span><span class="n">IsDomestic</span> <span class="p">==</span> <span class="k">false</span><span class="p">:</span>
+</span><span class='line'>      <span class="n">message</span> <span class="p">=</span> <span class="err">$</span><span class="s">&quot;The non-domestic cat is named {wildCat.Name}.&quot;</span><span class="p">;</span>
+</span><span class='line'>      <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">case</span> <span class="n">Cat</span> <span class="n">cat</span><span class="p">:</span>
+</span><span class='line'>      <span class="n">message</span> <span class="p">=</span> <span class="err">$</span><span class="s">&quot;The cat is named {cat.Name}.&quot;</span><span class="p">;</span>
+</span><span class='line'>      <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">default</span><span class="p">:</span> <span class="c1">// default is always evaluated last.</span>
+</span><span class='line'>      <span class="n">message</span> <span class="p">=</span> <span class="err">$</span><span class="s">&quot;{animal.Name} is a {animal.GetType().Name}.&quot;</span><span class="p">;</span>
+</span><span class='line'>      <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">case</span> <span class="n">Spider</span> <span class="n">spider</span> <span class="n">when</span> <span class="n">spider</span><span class="p">.</span><span class="n">IsPoisonous</span><span class="p">:</span>
+</span><span class='line'>      <span class="n">message</span> <span class="p">=</span> <span class="err">$</span><span class="s">&quot;The {spider.Name} spider is poisonous. Run!&quot;</span><span class="p">;</span>
+</span><span class='line'>      <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">case</span> <span class="k">null</span><span class="p">:</span>
+</span><span class='line'>      <span class="n">message</span> <span class="p">=</span> <span class="s">&quot;The animal is null.&quot;</span><span class="p">;</span>
+</span><span class='line'>      <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果引入lambda， switch后的case也能当成expression</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'> <span class="n">message</span> <span class="p">=</span> <span class="n">animal</span> <span class="k">switch</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>    <span class="n">Cat</span> <span class="n">fourLeggedCat</span> <span class="n">when</span> <span class="n">fourLeggedCat</span><span class="p">.</span><span class="n">Legs</span> <span class="p">==</span> <span class="m">4</span>
+</span><span class='line'>      <span class="p">=&gt;</span> <span class="err">$</span><span class="s">&quot;The cat named {fourLeggedCat.Name} has four legs.&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">Cat</span> <span class="n">wildCat</span> <span class="n">when</span> <span class="n">wildCat</span><span class="p">.</span><span class="n">IsDomestic</span> <span class="p">==</span> <span class="k">false</span>
+</span><span class='line'>      <span class="p">=&gt;</span> <span class="err">$</span><span class="s">&quot;The non-domestic cat is named {wildCat.Name}.&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">Cat</span> <span class="n">cat</span>
+</span><span class='line'>      <span class="p">=&gt;</span> <span class="err">$</span><span class="s">&quot;The cat is named {cat.Name}.&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">Spider</span> <span class="n">spider</span> <span class="n">when</span> <span class="n">spider</span><span class="p">.</span><span class="n">IsPoisonous</span>
+</span><span class='line'>      <span class="p">=&gt;</span> <span class="err">$</span><span class="s">&quot;The {spider.Name} spider is poisonous. Run!&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="k">null</span>
+</span><span class='line'>      <span class="p">=&gt;</span> <span class="s">&quot;The animal is null.&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">_</span>
+</span><span class='line'>      <span class="p">=&gt;</span> <span class="err">$</span><span class="s">&quot;{animal.Name} is a {animal.GetType().Name}.&quot;</span>
+</span><span class='line'>  <span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>int.TryParse()</code>, <code>int.Parse()</code>可以用于转换string到int</p>
+
+<p>partial class可以实现对已有的class的开闭拓展</p>
+
+<p>支持hash式入参，<code>TimesTable(number: 7, size: 10)</code></p>
+
+<p>cardinal 基数，红衣主教<br/>
+ordinal序列的</p>
+
+<p>value switch</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'>   <span class="kt">string</span> <span class="n">suffix</span> <span class="p">=</span> <span class="n">lastDigit</span> <span class="k">switch</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>          <span class="m">1</span> <span class="p">=&gt;</span> <span class="s">&quot;st&quot;</span><span class="p">,</span>
+</span><span class='line'>          <span class="m">2</span> <span class="p">=&gt;</span> <span class="s">&quot;nd&quot;</span><span class="p">,</span>
+</span><span class='line'>          <span class="m">3</span> <span class="p">=&gt;</span> <span class="s">&quot;rd&quot;</span><span class="p">,</span>
+</span><span class='line'>          <span class="n">_</span> <span class="p">=&gt;</span> <span class="s">&quot;th&quot;</span>
+</span><span class='line'>        <span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>contingent 代表团，exclusive to VS 专属于VS</p>
+
+<p>csproj文件中可以引入另一个csproj，采用ProjectReference标签，更要一级的是sln（solution容器）</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'>  <span class="p">&lt;</span><span class="n">ItemGroup</span><span class="p">&gt;</span>
+</span><span class='line'>    <span class="p">&lt;</span><span class="n">ProjectReference</span> <span class="n">Include</span><span class="p">=</span><span class="s">&quot;..\CalculatorLib\CalculatorLib.csproj&quot;</span> <span class="p">/&gt;</span>
+</span><span class='line'>  <span class="p">&lt;/</span><span class="n">ItemGroup</span><span class="p">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>\ forward slash<br/>
+/ backward slash</p>
+
+<p>c# 支持out出的入参</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="k">if</span> <span class="p">(</span><span class="kt">int</span><span class="p">.</span><span class="n">TryParse</span><span class="p">(</span><span class="n">input</span><span class="p">,</span> <span class="k">out</span> <span class="kt">int</span> <span class="n">count</span><span class="p">))</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">WriteLine</span><span class="p">(</span><span class="err">$</span><span class="s">&quot;There are {count} eggs.&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>进入OO</h2>
+
+<p>alias： <code>using ENV = System.Environment</code></p>
+
+<p>object initializer syntax, 很多样化的syntax</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="n">Book</span> <span class="n">book</span> <span class="p">=</span> <span class="k">new</span><span class="p">(</span><span class="n">isbn</span><span class="p">:</span> <span class="s">&quot;978-1803237800&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="n">title</span><span class="p">:</span> <span class="s">&quot;C# 12 and .NET 8 - Modern Cross-Platform Development Fundamentals&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">Author</span> <span class="p">=</span> <span class="s">&quot;Mark J. Price&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="n">PageCount</span> <span class="p">=</span> <span class="m">821</span>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>[Flags]</code>类似java的annotation，是一种decorating</p>
+
+<p>使用<code>readonly</code>优先于<code>const</code>，c#中的const只能用于原始类型，且在编译时就已经确定了值。</p>
+
+<p>大写的是Property，小写的是field，field是不对外暴露的</p>
+
+<p>optional parameters，naming parameters必须出现在required params后面</p>
+
+<p>in, out, ref,
+<code>public void PassingParameters(int w, in int x, ref int y, out int z)</code>
+ref和out的区别在于，out的参数由method实现初始化</p>
+
+<p>tuple的返回以及naming</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'> <span class="c1">// Method that returns a tuple: (string, int).</span>
+</span><span class='line'>  <span class="k">public</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="kt">int</span><span class="p">)</span> <span class="n">GetFruit</span><span class="p">()</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="p">(</span><span class="s">&quot;Apples&quot;</span><span class="p">,</span> <span class="m">5</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="kt">int</span><span class="p">)</span> <span class="n">fruit</span> <span class="p">=</span> <span class="n">bob</span><span class="p">.</span><span class="n">GetFruit</span><span class="p">();</span>
+</span><span class='line'>  <span class="p">(</span><span class="kt">string</span> <span class="n">fruitName</span><span class="p">,</span> <span class="kt">int</span> <span class="n">fruitNumber</span><span class="p">)</span> <span class="p">=</span> <span class="n">bob</span><span class="p">.</span><span class="n">GetFruit</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>local function，支持function内再建function</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="c1">// Method with a local function.</span>
+</span><span class='line'>  <span class="k">public</span> <span class="k">static</span> <span class="kt">int</span> <span class="nf">Factorial</span><span class="p">(</span><span class="kt">int</span> <span class="n">number</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">number</span> <span class="p">&lt;</span> <span class="m">0</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="k">throw</span> <span class="k">new</span> <span class="nf">ArgumentException</span><span class="p">(</span>
+</span><span class='line'>        <span class="err">$</span><span class="s">&quot;{nameof(number)} cannot be less than zero.&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nf">localFactorial</span><span class="p">(</span><span class="n">number</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kt">int</span> <span class="nf">localFactorial</span><span class="p">(</span><span class="kt">int</span> <span class="n">localNumber</span><span class="p">)</span> <span class="c1">// Local function.</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="k">if</span> <span class="p">(</span><span class="n">localNumber</span> <span class="p">==</span> <span class="m">0</span><span class="p">)</span> <span class="k">return</span> <span class="m">1</span><span class="p">;</span>
+</span><span class='line'>      <span class="k">return</span> <span class="n">localNumber</span> <span class="p">*</span> <span class="n">localFactorial</span><span class="p">(</span><span class="n">localNumber</span> <span class="p">-</span> <span class="m">1</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>partial除了修饰method，还能修饰method，便于与自动生成的代码共存</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="c1">// Auto-generated designer file</span>
+</span><span class='line'><span class="k">partial</span> <span class="k">class</span> <span class="nc">FormDesigner</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">partial</span> <span class="k">void</span> <span class="nf">OnInitialized</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="nf">FormDesigner</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="n">InitializeComponent</span><span class="p">();</span>
+</span><span class='line'>        <span class="n">OnInitialized</span><span class="p">();</span> <span class="c1">// Optional hook</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// Your custom code</span>
+</span><span class='line'><span class="k">partial</span> <span class="k">class</span> <span class="nc">FormDesigner</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">partial</span> <span class="k">void</span> <span class="nf">OnInitialized</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="c1">// Add custom initialization code</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>indexer其实就是按数组方式去访问</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'>  <span class="cp">#region Indexers: Properties that use array syntax to access them.</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">public</span> <span class="n">Person</span> <span class="k">this</span><span class="p">[</span><span class="kt">int</span> <span class="n">index</span><span class="p">]</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>    <span class="k">get</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="k">return</span> <span class="n">Children</span><span class="p">[</span><span class="n">index</span><span class="p">];</span> <span class="c1">// pass on to the List&lt;T&gt; indexer</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">set</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="n">Children</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="p">=</span> <span class="k">value</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Pattern matching: 1. 类型模式 2. 关系模式( > &lt; =>) 3. 属性模式</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="kt">var</span> <span class="n">employee</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Employee</span> <span class="p">{</span> <span class="n">Name</span> <span class="p">=</span> <span class="s">&quot;Charlie&quot;</span><span class="p">,</span> <span class="n">IsManager</span> <span class="p">=</span> <span class="k">true</span> <span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">string</span> <span class="n">role</span> <span class="p">=</span> <span class="n">employee</span> <span class="k">switch</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="p">{</span> <span class="n">IsManager</span><span class="p">:</span> <span class="k">true</span><span class="p">,</span> <span class="n">Name</span><span class="p">:</span> <span class="kt">var</span> <span class="n">name</span> <span class="p">}</span> <span class="n">when</span> <span class="n">name</span><span class="p">.</span><span class="n">StartsWith</span><span class="p">(</span><span class="s">&quot;C&quot;</span><span class="p">)</span>
+</span><span class='line'>        <span class="p">=&gt;</span> <span class="s">&quot;Manager with a C-name&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="p">{</span> <span class="n">IsManager</span><span class="p">:</span> <span class="k">true</span> <span class="p">}</span> <span class="p">=&gt;</span> <span class="s">&quot;Just a manager&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">_</span> <span class="p">=&gt;</span> <span class="s">&quot;Regular employee&quot;</span>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>属性的get，set以及init，init表示必须在构造函数函数中被初始化，注意属性名称使用的是大写</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="k">public</span> <span class="k">class</span> <span class="nc">Book</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="k">public</span> <span class="kt">string</span> <span class="n">Title</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'>  <span class="k">public</span> <span class="kt">string?</span> <span class="n">Author</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>record的==比较是按value进行的，而其他reference按value实现比较的只有string</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="n">AnimalRecord</span> <span class="n">ar1</span> <span class="p">=</span> <span class="k">new</span><span class="p">()</span> <span class="p">{</span> <span class="n">Name</span> <span class="p">=</span> <span class="s">&quot;Rex&quot;</span> <span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 定义primary constructor，Kotlin也是类似的做法</span>
+</span><span class='line'><span class="k">public</span> <span class="nf">Headset</span><span class="p">()</span> <span class="p">:</span> <span class="k">this</span><span class="p">(</span><span class="s">&quot;Microsoft&quot;</span><span class="p">,</span> <span class="s">&quot;HoloLens&quot;</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>操作相同类的method： 即this是自己，而传入的参数比如this.method1(that)的that也是本class，最好同时提供静态方法和实例方法。<br/>
+定义operator的重载，指<code>+-*/</code>的重载。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="c1">// Define the + operator to &quot;marry&quot;.</span>
+</span><span class='line'>  <span class="k">public</span> <span class="k">static</span> <span class="kt">bool</span> <span class="k">operator</span> <span class="p">+(</span><span class="n">Person</span> <span class="n">p1</span><span class="p">,</span> <span class="n">Person</span> <span class="n">p2</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>    <span class="n">Marry</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// Confirm they are both now married.</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">p1</span><span class="p">.</span><span class="n">Married</span> <span class="p">&amp;&amp;</span> <span class="n">p2</span><span class="p">.</span><span class="n">Married</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Generic 例子</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="n">Dictionary</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">string</span><span class="p">&gt;</span> <span class="n">lookupIntString</span> <span class="p">=</span> <span class="k">new</span><span class="p">();</span>
+</span><span class='line'><span class="n">lookupIntString</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">key</span><span class="p">:</span> <span class="m">1</span><span class="p">,</span> <span class="k">value</span><span class="p">:</span> <span class="s">&quot;Alpha&quot;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>delegate and EventHandler</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'>  <span class="k">public</span> <span class="k">event</span> <span class="n">EventHandler</span><span class="p">?</span> <span class="n">Shout</span><span class="p">;</span> <span class="c1">// null initially.</span>
+</span><span class='line'>
+</span><span class='line'><span class="cp">#region Defining and handling delegates</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// Assign the method(s) to the Shout event delegate.</span>
+</span><span class='line'><span class="n">harry</span><span class="p">.</span><span class="n">Shout</span> <span class="p">+=</span> <span class="n">Harry_Shout</span><span class="p">;</span>
+</span><span class='line'><span class="n">harry</span><span class="p">.</span><span class="n">Shout</span> <span class="p">+=</span> <span class="n">Harry_Shout_2</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 触发时，就会把所有注册给Shout的handler都调用一遍</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">Shout</span> <span class="k">is</span> <span class="n">not</span> <span class="k">null</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="c1">// ...then call the delegate to &quot;raise&quot; the event.</span>
+</span><span class='line'>      <span class="n">Shout</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="n">EventArgs</span><span class="p">.</span><span class="n">Empty</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>IComparable 和 IComparer</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="k">public</span> <span class="k">class</span> <span class="nc">Person</span> <span class="p">:</span> <span class="n">IComparable</span><span class="p">&lt;</span><span class="n">Person</span><span class="p">&gt;</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="k">public</span> <span class="kt">int</span> <span class="nf">CompareTo</span><span class="p">(</span><span class="n">Person</span><span class="p">?</span> <span class="n">other</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>    <span class="kt">int</span> <span class="n">position</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">position</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">Array</span><span class="p">.</span><span class="n">Sort</span><span class="p">(</span><span class="n">people</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">public</span> <span class="k">class</span> <span class="nc">PersonComparer</span> <span class="p">:</span> <span class="n">IComparer</span><span class="p">&lt;</span><span class="n">Person</span><span class="p">?&gt;</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="k">public</span> <span class="kt">int</span> <span class="nf">Compare</span><span class="p">(</span><span class="n">Person</span><span class="p">?</span> <span class="n">x</span><span class="p">,</span> <span class="n">Person</span><span class="p">?</span> <span class="n">y</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="m">0</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">Array</span><span class="p">.</span><span class="n">Sort</span><span class="p">(</span><span class="n">people</span><span class="p">,</span> <span class="k">new</span> <span class="n">PersonComparer</span><span class="p">());</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>多个接口定义的方法名相同时，可以使用显示实现的版本。在调用时必须指明接口</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="k">interface</span> <span class="n">IWriter</span> <span class="p">{</span> <span class="k">void</span> <span class="n">Write</span><span class="p">();</span> <span class="p">}</span>
+</span><span class='line'><span class="k">interface</span> <span class="n">IEncoder</span> <span class="p">{</span> <span class="k">void</span> <span class="n">Write</span><span class="p">();</span> <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Processor</span> <span class="p">:</span> <span class="n">IWriter</span><span class="p">,</span> <span class="n">IEncoder</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">void</span> <span class="n">IWriter</span><span class="p">.</span><span class="n">Write</span><span class="p">()</span> <span class="p">=&gt;</span> <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Writing to file.&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">void</span> <span class="n">IEncoder</span><span class="p">.</span><span class="n">Write</span><span class="p">()</span> <span class="p">=&gt;</span> <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Encoding data.&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="c1">// 调用</span>
+</span><span class='line'><span class="kt">var</span> <span class="n">processor</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Processor</span><span class="p">();</span>
+</span><span class='line'><span class="p">((</span><span class="n">IWriter</span><span class="p">)</span><span class="n">processor</span><span class="p">).</span><span class="n">Write</span><span class="p">();</span> <span class="c1">// 输出: Writing to file.</span>
+</span><span class='line'><span class="p">((</span><span class="n">IEncoder</span><span class="p">)</span><span class="n">processor</span><span class="p">).</span><span class="n">Write</span><span class="p">();</span> <span class="c1">// 输出: Encoding data.</span>
+</span><span class='line'><span class="c1">// processor.Write(); // ❌ 编译错误：不能直接通过类实例调用</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>int? a 表明可能可能为空，还有GetValueOrDefault()可以返回默认值，int的默认值是0</p>
+
+<p>inherit，用一个colon表示<br/>
+<code>public class Employee: Person {}</code></p>
+
+<p>只有标明多态的方法，才能在method前面用override，否则只能用new来hide父类的方法，且不会有多态的效果。指明多态，需要在父类层级中的某个地方定义该method为<code>virtual</code>.</p>
+
+<p><code>this</code>和<code>base</code>是区分子类和父类的关键字</p>
+
+<p>obj转类型时可以用if语句检查后避免使用cast</p>
+
+<p>constructors不会被继承，除非使用base()调用</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="k">public</span> <span class="k">class</span> <span class="nc">PersonException</span> <span class="p">:</span> <span class="n">Exception</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="k">public</span> <span class="nf">PersonException</span><span class="p">()</span> <span class="p">:</span> <span class="k">base</span><span class="p">()</span> <span class="p">{</span> <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">public</span> <span class="nf">PersonException</span><span class="p">(</span><span class="kt">string</span> <span class="n">message</span><span class="p">)</span> <span class="p">:</span> <span class="k">base</span><span class="p">(</span><span class="n">message</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">public</span> <span class="nf">PersonException</span><span class="p">(</span><span class="kt">string</span> <span class="n">message</span><span class="p">,</span> <span class="n">Exception</span> <span class="n">innerException</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">:</span> <span class="k">base</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">innerException</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>extension methods:<br/>
+利用static class和static method，加上(this string input) 就可以给string加上实例方法。实际上只是一个语法糖，这个东西也很自然地被kt抄了过去</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="k">public</span> <span class="k">static</span> <span class="k">class</span> <span class="nc">StringExtensions</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="k">public</span> <span class="k">static</span> <span class="kt">bool</span> <span class="nf">IsValidEmail</span><span class="p">(</span><span class="k">this</span> <span class="kt">string</span> <span class="n">input</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>    <span class="c1">// Use a simple regular expression to check</span>
+</span><span class='line'>    <span class="c1">// that the input string is a valid email.</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="n">Regex</span><span class="p">.</span><span class="n">IsMatch</span><span class="p">(</span><span class="n">input</span><span class="p">,</span>
+</span><span class='line'>      <span class="s">@&quot;[a-zA-Z0-9\.-_]+@[a-zA-Z0-9\.-_]+&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>自定义的class，初始化特性，继承性，==的计算，都是按内存来进行比对和操作的<br/>
+struct分配的变量存储在stack里，默认没有==方法，但record struct是有的。</p>
+
+<p>.net 虚拟机的一些概念<br/>
+IL - Intermediate Language<br/>
+CLR - Common Language Runtime<br/>
+BCL - Base Class Libraries<br/>
+Assembly -> NuGet package(dlls)<br/>
+namespace - type的地址<br/>
+RootNamespace在assembly的cproj文件里定义了全局的地址<br/>
+PropertyGroup中定义控制build的属性<br/>
+ItemGroup中定义需要包含的东西<br/>
+一个dll(assembly)可以包含多个namespaces<br/>
+Package是用于管理依赖的，通常和dll一一对应<br/>
+nuget.config定义project，solution的配置，一层一个文件，overriding式的<br/>
+string和int这样小写的关键字，最后会关联到System里面的String和Int32这样的类<br/>
+可以在nuget.org上发布自己的dll，类似nexus</p>
+
+<p><code>{Math.BigMul(number1, number2):N0}</code> 用于两个大数相乘<br/>
+Random.Shared 可以构造随机数字</p>
+
+<p>List(Add, Insert, Remove, RemoveAt)<br/>
+Dictionary(Add, Remove)<br/>
+HashSet(Add, Remove)<br/>
+Queue(Enqueue, Dequeue)<br/>
+Stack(Push, Pop)<br/>
+Sorted Collections(SortedDictionary, SortedList, SortedSet)<br/>
+BitArray, LinkedList<T></p>
+
+<p>Readonly是只读的list，而ImmutableDictionary可以有Add操作，但结果是返回一个全新的dictionary.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="c1">// Call the Add method with a return value.</span>
+</span><span class='line'><span class="n">ImmutableDictionary</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span> <span class="kt">string</span><span class="p">&gt;</span> <span class="n">newDictionary</span> <span class="p">=</span>
+</span><span class='line'>  <span class="n">immutableKeywords</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span>
+</span><span class='line'>    <span class="n">key</span><span class="p">:</span> <span class="n">Guid</span><span class="p">.</span><span class="n">NewGuid</span><span class="p">().</span><span class="n">ToString</span><span class="p">(),</span>
+</span><span class='line'>    <span class="k">value</span><span class="p">:</span> <span class="n">Guid</span><span class="p">.</span><span class="n">NewGuid</span><span class="p">().</span><span class="n">ToString</span><span class="p">());</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>还有concurrent的版本，有的搭配await/async使用<br/>
+FrozenSet和FrozenDictionary则则没有Add和Remove方法<br/>
+EnsureCapacity(10_000)可以给定size</p>
+
+<p>Index：<br/>
+s[^5]获取倒数第5个元素</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="n">Range</span> <span class="n">r1</span> <span class="p">=</span> <span class="k">new</span><span class="p">(</span><span class="n">start</span><span class="p">:</span> <span class="m">3</span><span class="p">,</span> <span class="n">end</span><span class="p">:</span> <span class="m">7</span><span class="p">);</span>
+</span><span class='line'><span class="n">r3</span> <span class="p">=</span> <span class="m">3.</span><span class="p">.</span><span class="m">7</span><span class="p">;</span>
+</span><span class='line'><span class="n">r7</span> <span class="p">=</span> <span class="p">..</span><span class="m">3</span><span class="p">;</span> <span class="c1">//从0到3</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>c#的两个点<code>..</code>也是一种spread的操作法，这一点不同于JS的三个点<br/>
+使用range可以返回某个连续集合的span，span默认情况下引用的是原collection内的元素地址，从而可以提高性能</p>
+
+<p>使用<code>Path.DirectorySeparatorChar</code>来构造文件路径，<code>Path.Combine(current, "images")</code>组合路径<br/>
+stream helper是一种decorator，如果gzip，CryptoStream等等<br/>
+streamReader， StreamWriter，</p>
+
+<p>EF建设在ADO.NET上，后者是类似JDBC的一套东西。<br/>
+Fluent API<br/>
+扩展自DbContext， OnConfiguring定义数据源等信息<br/>
+OnModelCreating中定义关联关系<br/>
+例子的代码给了用scaffold从表格中生成partial class的例子，但我聚的这种大量attributes（annotation）的写法入侵性太重，手法并不好。<br/>
+configureConventions配置惯例，例如所有的string类型默认50的长度<br/>
+IQueryable<Product>?.ToQueryString()<br/>
+optionsBuilder.LogTo().EnableSensitiveDataLogging可以配置EF的日志，用于调试SQL<br/>
+查询的时候能由tagwith输出日志。</p>
+
+<p>Principal Entity &#8211; contains primary key<br/>
+Dependent Entity &#8211; contains foreign keys<br/>
+Required relationship &#8211; contains foreign key and is non-nullable<br/>
+Optional relationship &#8211; contains foreign key and is nullable<br/>
+HasOne/HasMany, WithOne/WithMany<br/>
+HasForeignKey<Ticket>表示ticket里面会有这个对象的外键<br/>
+HasPrincipalKey可以指定关联的主键<br/>
+abstraction &#8211; focus on a single concern<br/>
+Lower and Higher order abstractions<br/>
+encapsulation &#8211; 封装的是状态<br/>
+ORM eliminate the need for repositories<br/>
+Avoid shallow abstractions<br/>
+Cartesian explosion, 多个一对多的情况下返回数据过多<br/>
+Navigation and AutoInclude() 主动加载<br/>
+<em>context.Entry()分别载入<br/>
+.AsSplitQuery()没有涉及LazyLoading<br/>
+Add, Update, Attach， 倾向于使用显示的repository<br/>
+</em>context的FromSqlInterpolated($@&#8221;{}&#8221;)<br/>
+dbContext已经使用了unit of work这种模式</p>
+
+<p>IQueryable<Student> vs IEnumerable<Student><br/>
+Run on DB               Run in Memory<br/>
+use internally          queryable.As Enumerable()<br/>
+Return the most specific type<br/>
+更推荐IReadOnlyList返回，这个会直接执行。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Hegel 2011</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2025-07-01T17:08:00+08:00" pubdate data-updated="true">Jul 1<span>st</span>, 2025</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/技术/'>技术</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="https://swachian.github.io//blog/2025/07/01/csharp/" data-via="" data-counturl="https://swachian.github.io//blog/2025/07/01/csharp/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2025/06/15/javascript-to-typescript/" title="Previous Post: JavaScript To TypeScript">&laquo; JavaScript To TypeScript</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2025/07/01/csharp/">C# and .Net Notes</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2025/06/15/javascript-to-typescript/">JavaScript To TypeScript</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2025/04/30/cong-bing-fa-dao-kotlinhe-mo-shi-de-xue-xi/">从并发到Kotlin和模式的学习</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2022/04/23/wfh-yi-ge-ban-yue/">WFH一个半月</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2021/12/30/2021-crvyang-che-cheng-ben-hui-zong/">2021 CRV养车成本汇总</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>Categories</h1>
+    <ul id="category-list"><li><a href='/blog/categories/技术'>技术 (98)</a></li><li><a href='/blog/categories/生活'>生活 (54)</a></li><li><a href='/blog/categories/车车'>车车 (40)</a></li><li><a href='/blog/categories/java'>Java (36)</a></li><li><a href='/blog/categories/读书笔记'>读书笔记 (26)</a></li><li><a href='/blog/categories/时评'>时评 (24)</a></li><li><a href='/blog/categories/神器'>神器 (23)</a></li><li><a href='/blog/categories/笔记'>笔记 (21)</a></li><li><a href='/blog/categories/ruby'>Ruby (18)</a></li><li><a href='/blog/categories/spring'>Spring (15)</a></li><li><a href='/blog/categories/项目管理'>项目管理 (14)</a></li><li><a href='/blog/categories/rails'>Rails (13)</a></li><li><a href='/blog/categories/linux'>Linux (12)</a></li><li><a href='/blog/categories/软考'>软考 (8)</a></li><li><a href='/blog/categories/云计算'>云计算 (6)</a></li><li><a href='/blog/categories/crv'>Crv (6)</a></li><li><a href='/blog/categories/nodejs'>Nodejs (6)</a></li><li><a href='/blog/categories/nosql数据库'>Nosql数据库 (5)</a></li><li><a href='/blog/categories/旅游'>旅游 (4)</a></li><li><a href='/blog/categories/管理'>管理 (4)</a></li><li><a href='/blog/categories/装机'>装机 (4)</a></li><li><a href='/blog/categories/heroku'>Heroku (4)</a></li><li><a href='/blog/categories/读书列表'>读书列表 (3)</a></li><li><a href='/blog/categories/git'>Git (3)</a></li><li><a href='/blog/categories/script'>Script (3)</a></li><li><a href='/blog/categories/mac'>Mac (2)</a></li><li><a href='/blog/categories/期刊'>期刊 (2)</a></li><li><a href='/blog/categories/外刊'>外刊 (2)</a></li><li><a href='/blog/categories/java'>Java (36)</a></li><li><a href='/blog/categories/键盘'>键盘 (1)</a></li><li><a href='/blog/categories/测试'>测试 (1)</a></li><li><a href='/blog/categories/安卓'>安卓 (1)</a></li><li><a href='/blog/categories/kotlin'>Kotlin (1)</a></li><li><a href='/blog/categories/区块链'>区块链 (1)</a></li><li><a href='/blog/categories/读书'>读书 (1)</a></li></ul>
+</section>
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2025 - Hegel 2011 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+  <a title="Web Statistics" href="http://getclicky.com/66623321"><img alt="Web Statistics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
+  <script src="//static.getclicky.com/js" type="text/javascript"></script>
+  <script type="text/javascript">try{ clicky.init(66623321); }catch(e){}</script>
+  <noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66623321ns.gif" /></p></noscript>
+
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+<script type="text/javascript">
+    (function() {
+        var twitterWidgets = document.createElement('script');
+        twitterWidgets.type = 'text/javascript';
+        twitterWidgets.async = true;
+        twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+        document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+</script>
+
+
+
+
+</body>
+</html>
